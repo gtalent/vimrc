@@ -1,6 +1,4 @@
-let g:tagbar_type_javascript = {
-    \ 'ctagsbin' : '/path/to/jsctags'
-\ }
+"let g:tagbar_type_javascript = { 'ctagsbin' : 'jsctags' }
 
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
