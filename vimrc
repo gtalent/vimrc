@@ -1,7 +1,22 @@
 set shell=zsh\ --login
 set nocompatible
 
-call pathogen#infect()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'fatih/vim-go'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'itchyny/lightline.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'peterhoeg/vim-qml'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-git'
+
+call vundle#end()
 
 function! LoadGeneralProfile()
 	noremap <C-H> <C-W><C-H>
