@@ -1,22 +1,25 @@
-set shell=bash\ --login
+set shell=zsh\ --login
+set nocompatible
 
 call pathogen#infect()
 
 function! LoadGeneralProfile()
+	noremap <C-H> <C-W><C-H>
+	noremap <C-J> <C-W><C-J>
+	noremap <C-K> <C-W><C-K>
+	noremap <C-L> <C-W><C-L>
 	imap <C-BS> <C-W>
 	call MapCommand("<C-S>", "write<CR>")
 	call MapCommand("<C-F4>", "quit<CR>")
 	call MapCommand("<C-K>", "pop<CR>")
 	call MapCommand("<C-T>", "tabnew ")
 	call MapCommand("<C-Y>", "vsplit ")
-	call MapCommand("<C-H>", "split ")
 	call MapCommand("<C-O>", "edit ")
 	call MapCommand("<C-R>", "redo<CR>")
 	call MapCommand("<C-TAB>", "tabn<CR>")
 	call MapCommand("<C-S-TAB>", "tabp<CR>")
 	call MapCommand("<A-S-F>", "write<BAR>make fmt<BAR>o<CR>")
 
-	call MapCommand("<F5>", "write<BAR>make ")
 	call MapCommand("<C-B>", "write<BAR>make<CR>")
 	call MapCommand("<C-F5>", "write<BAR>make ")
 
@@ -33,6 +36,8 @@ function! LoadGeneralProfile()
 	hi DiffDelete ctermfg=0 ctermbg=1 guibg='#FE4747'
 	hi DiffAdd ctermfg=0 ctermbg=2 guibg='#A5EE87'
 	hi DiffChange ctermfg=0 ctermbg=3 guibg='#5587F7'
+	hi Todo guifg=#750000 gui=italic
+	hi visual guifg=#ffffff guibg=DeepSkyBlue4
 endfunction
 
 function! MapCommand(key, com)
@@ -53,6 +58,8 @@ endfunction
 
 "set nomodeline
 set autoindent
+set splitright
+set splitbelow
 set smartindent
 set tabstop=3
 set shiftwidth=3
@@ -65,12 +72,12 @@ set guioptions-=L guioptions-=T guioptions-=m guioptions-=r guioptions-=b
 set noerrorbells visualbell t_vb=
 set noswapfile
 set backspace=2
-set nocompatible
 autocmd GUIEnter * set visualbell t_vb=
 
 syntax on
 if has("gui_running")
 	colorscheme wombat
+	set spell
 else
 	colorscheme delek
 endif
