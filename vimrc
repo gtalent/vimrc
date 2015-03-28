@@ -1,11 +1,10 @@
-set shell=zsh\ --login
 set nocompatible
+set shell=zsh\ --login
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'derekwyatt/vim-scala'
 Plugin 'fatih/vim-go'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'itchyny/lightline.vim'
@@ -13,6 +12,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'scrooloose/nerdtree'
+Plugin 'skammer/vim-css-color'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 
@@ -35,23 +35,19 @@ func! LoadGeneralProfile()
 	imap <C-BS> <C-W>
 	call SetupOpeners()
 	call MapCommand("<C-S>", "write<CR>")
-	call MapCommand("<C-F4>", "quit<CR>")
 	call MapCommand("<C-K>", "pop<CR>")
 	call MapCommand("<C-R>", "redo<CR>")
-	call MapCommand("<C-TAB>", "tabn<CR>")
-	call MapCommand("<C-S-TAB>", "tabp<CR>")
-	call MapCommand("<A-S-F>", "write<BAR>make fmt<BAR>o<CR>")
-	call MapCommand("<C-B>", "write<BAR>make<CR>")
+	call MapCommand("<C-F4>", "quit<CR>")
 	call MapCommand("<C-F5>", "write<BAR>make ")
+
+	call MapCommand("<C-TAB>", "tabnext<CR>")
+	call MapCommand("<C-S-TAB>", "tabprevious<CR>")
 
 	call MapCommand("<F2>", "call Svndiff(\"prev\")<CR>")
 	call MapCommand("<F3>", "call Svndiff(\"next\")<CR>")
 	call MapCommand("<F4>", "call Svndiff(\"clear\")<CR>")
 	call MapCommand("<F12>", "TagbarToggle<CR>")
 	call MapCommand("<C-F12>", "NERDTreeToggle<CR>")
-	
-	call MapCommand("<A-B>", "call MultiCursorVisual()<CR>")
-	let g:multicursor_quit="<C-B>"
 
 	let g:svndiff_autoupdate=1
 	hi DiffDelete ctermfg=0 ctermbg=1 guibg='#FE4747'
@@ -70,18 +66,13 @@ func! IMapCommand(key, com)
 	execute "imap " . a:key . " :" . a:com
 endfunc
 
+
+"event handlers
+
 func! OnBufEnter()
 	call SetupOpeners()
 endfunc
 
-func! ResCur()
-	"if line("-\_") <= line("$")
-	"	normal! i`"
-	"	return 1
-	"endif
-endfunc
-
-"set nomodeline
 set autoindent
 set splitright
 set splitbelow
@@ -90,7 +81,6 @@ set tabstop=3
 set shiftwidth=3
 set nu
 set hlsearch
-"set autochdir
 set clipboard=unnamed
 set bs=2
 set guioptions-=L guioptions-=T guioptions-=m guioptions-=r guioptions-=b
@@ -109,11 +99,6 @@ endif
 hi Search guibg=DeepSkyBlue4
 
 set viminfo='10,\"100,:20,%
-"augroup resCur
-"	autocmd!
-"	autocmd BufWinEnter * call ResCur()
-"augroup END
-
 
 autocmd! BufEnter * call OnBufEnter()
 
