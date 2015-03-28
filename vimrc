@@ -18,23 +18,29 @@ Plugin 'tpope/vim-git'
 
 call vundle#end()
 
-function! LoadGeneralProfile()
+let g:dirOfCurrentFile = expand('%:p:h')
+
+func! SetupOpeners()
+	let l:dirOfCurrentFile = expand('%:p:h') . "/"
+	call MapCommand("<C-T>", "tabnew " . l:dirOfCurrentFile)
+	call MapCommand("<C-G>", "vsplit " . l:dirOfCurrentFile)
+	call MapCommand("<C-O>", "edit " . l:dirOfCurrentFile)
+endfunc
+
+func! LoadGeneralProfile()
 	noremap <C-H> <C-W><C-H>
 	noremap <C-J> <C-W><C-J>
 	noremap <C-K> <C-W><C-K>
 	noremap <C-L> <C-W><C-L>
 	imap <C-BS> <C-W>
+	call SetupOpeners()
 	call MapCommand("<C-S>", "write<CR>")
 	call MapCommand("<C-F4>", "quit<CR>")
 	call MapCommand("<C-K>", "pop<CR>")
-	call MapCommand("<C-T>", "tabnew ")
-	call MapCommand("<C-Y>", "vsplit ")
-	call MapCommand("<C-O>", "edit ")
 	call MapCommand("<C-R>", "redo<CR>")
 	call MapCommand("<C-TAB>", "tabn<CR>")
 	call MapCommand("<C-S-TAB>", "tabp<CR>")
 	call MapCommand("<A-S-F>", "write<BAR>make fmt<BAR>o<CR>")
-
 	call MapCommand("<C-B>", "write<BAR>make<CR>")
 	call MapCommand("<C-F5>", "write<BAR>make ")
 
@@ -53,23 +59,27 @@ function! LoadGeneralProfile()
 	hi DiffChange ctermfg=0 ctermbg=3 guibg='#5587F7'
 	hi Todo guifg=#750000 gui=italic
 	hi visual guifg=#ffffff guibg=DeepSkyBlue4
-endfunction
+endfunc
 
-function! MapCommand(key, com)
+func! MapCommand(key, com)
 	execute "map " . a:key . " :" . a:com
 	execute "imap " . a:key . " <ESC>" . a:key
-endfunction
+endfunc
 
-function! IMapCommand(key, com)
+func! IMapCommand(key, com)
 	execute "imap " . a:key . " :" . a:com
-endfunction
+endfunc
 
-function! ResCur()
+func! OnBufEnter()
+	call SetupOpeners()
+endfunc
+
+func! ResCur()
 	"if line("-\_") <= line("$")
 	"	normal! i`"
 	"	return 1
 	"endif
-endfunction
+endfunc
 
 "set nomodeline
 set autoindent
@@ -87,7 +97,7 @@ set guioptions-=L guioptions-=T guioptions-=m guioptions-=r guioptions-=b
 set noerrorbells visualbell t_vb=
 set noswapfile
 set backspace=2
-autocmd GUIEnter * set visualbell t_vb=
+autocmd! GUIEnter * set visualbell t_vb=
 
 syntax on
 if has("gui_running")
@@ -99,10 +109,14 @@ endif
 hi Search guibg=DeepSkyBlue4
 
 set viminfo='10,\"100,:20,%
-augroup resCur
-	autocmd!
-	autocmd BufWinEnter * call ResCur()
-augroup END
+"augroup resCur
+"	autocmd!
+"	autocmd BufWinEnter * call ResCur()
+"augroup END
+
+
+autocmd! BufEnter * call OnBufEnter()
+
 "let g:tagbar_type_javascript = { 'ctagsbin' : 'jsctags' }
 
 let g:tagbar_type_go = {
