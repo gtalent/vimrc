@@ -5,16 +5,19 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'blerins/flattown'
 Plugin 'fatih/vim-go'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'scrooloose/nerdtree'
 Plugin 'skammer/vim-css-color'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
+Plugin 'wting/rust.vim'
 
 call vundle#end()
 
@@ -91,12 +94,11 @@ autocmd! GUIEnter * set visualbell t_vb=
 
 syntax on
 if has("gui_running")
-	colorscheme wombat
+	colorscheme wombatant
 	set spell
 else
 	colorscheme delek
 endif
-hi Search guibg=DeepSkyBlue4
 
 set viminfo='10,\"100,:20,%
 
