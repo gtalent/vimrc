@@ -1,5 +1,5 @@
-" Maintainer:	Lars H. Nielsen (dengmao@gmail.com)
-" Last Change:	January 22 2007
+" Maintainer:	Gary Talent (gtalent2@gmail.com), Lars H. Nielsen (dengmao@gmail.com)
+" Last Change:	October 21 2015
 
 set background=dark
 
